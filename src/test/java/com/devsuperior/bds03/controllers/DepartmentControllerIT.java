@@ -4,6 +4,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import com.devsuperior.bds03.tests.TokenUtil;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.devsuperior.bds03.tests.TokenUtil;
-
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-public class DepartmentControllerIT {
+class DepartmentControllerIT {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -42,7 +42,7 @@ public class DepartmentControllerIT {
 	}
 	
 	@Test
-	public void findAllShouldReturnAllResourcesSortedByNameWhenAdminLogged() throws Exception {
+	void findAllShouldReturnAllResourcesSortedByNameWhenAdminLogged() throws Exception {
 		
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
 		
@@ -58,7 +58,7 @@ public class DepartmentControllerIT {
 	}
 	
 	@Test
-	public void findAllShouldReturnAllResourcesSortedByNameWhenEmployeeLogged() throws Exception {
+	void findAllShouldReturnAllResourcesSortedByNameWhenEmployeeLogged() throws Exception {
 		
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, operatorUsername, operatorPassword);
 		
@@ -74,7 +74,7 @@ public class DepartmentControllerIT {
 	}
 	
 	@Test
-	public void findAllShouldReturn401WhenNoUserLogged() throws Exception {
+	void findAllShouldReturn401WhenNoUserLogged() throws Exception {
 		
 		ResultActions result =
 				mockMvc.perform(get("/departments")

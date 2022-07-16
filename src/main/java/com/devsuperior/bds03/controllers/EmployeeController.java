@@ -4,6 +4,9 @@ import java.net.URI;
 
 import javax.validation.Valid;
 
+import com.devsuperior.bds03.dto.EmployeeDTO;
+import com.devsuperior.bds03.services.EmployeeService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,9 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-import com.devsuperior.bds03.dto.EmployeeDTO;
-import com.devsuperior.bds03.services.EmployeeService;
 
 @RestController
 @RequestMapping(value = "/employees")
@@ -35,7 +35,7 @@ public class EmployeeController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<EmployeeDTO> insert(@RequestBody EmployeeDTO dto) {
+	public ResponseEntity<EmployeeDTO> insert(@Valid @RequestBody EmployeeDTO dto) {
 		dto = service.insert(dto);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(dto.getId()).toUri();
